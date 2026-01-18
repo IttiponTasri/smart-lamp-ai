@@ -1,4 +1,4 @@
 flask
 joblib
 numpy
-scikit-learn
+scikit-learn==1.4.2
