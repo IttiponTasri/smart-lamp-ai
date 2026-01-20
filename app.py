@@ -18,7 +18,12 @@ def predict():
         return jsonify({"status": "AI server online"})
 
     try:
-        data = request.get_json(force=True)
+        data = request.get_json(silent=True)
+
+        if data is None:
+            return jsonify({
+                "error": "No JSON received"
+            }), 400
 
         X = np.array([[ 
             float(data.get("zone", 0)),
@@ -36,6 +41,8 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
